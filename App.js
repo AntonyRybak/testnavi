@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+import { Modal } from 'react-native';
 
-export default function App() {
+// Create screens
+function HomeScreen({ setScreen }) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button title="Мазафака" onPress={() => setScreen('Settings')} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+function SettingsScreen({ setScreen }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Settings Screen</Text>
+      <Button title="Go back" onPress={() => setScreen('Home')} />
+    </View>
+  );
+}
+
+// Create main component
+export default function App() {
+  const [screen, setScreen] = useState('Home');
+
+  return (
+    <View style={{ flex: 1 }}>
+      {screen === 'Home' && <HomeScreen setScreen={setScreen} />}
+      {screen === 'Settings' && <SettingsScreen setScreen={setScreen} />}
+    </View>
+  );
+}
